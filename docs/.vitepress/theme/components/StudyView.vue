@@ -6,9 +6,14 @@ import {
 } from '../storage'
 import { renderMd } from '../md'
 import QuizBrowse from './QuizBrowse.vue'
+import FullQuiz from './FullQuiz.vue'
 
 const deck = inject('deck', [])
 const byId = computed(() => Object.fromEntries(deck.map((c) => [c.id, c])))
+
+const fullQuizOpen = ref(false)
+function openFullQuiz() { fullQuizOpen.value = true }
+function closeFullQuiz() { fullQuizOpen.value = false }
 
 const tabs = [
   { key: 'quiz', label: '自测' },
@@ -92,6 +97,7 @@ onMounted(() => {
   buildQueue('due')
   refreshStats()
   window.addEventListener('deck-updated', refreshStats)
+  window.addEventListener('fullquiz-close', closeFullQuiz)
 })
 
 // 记忆盒子分布
@@ -139,6 +145,7 @@ function reset() {
         <button class="mini" :class="{ on: shuffle }" @click="toggleShuffle">🔀 乱序</button>
         <span class="progress">{{ progressText }}</span>
         <button class="mini ghost" @click="startQuiz">重新开始</button>
+        <button class="mini" @click="openFullQuiz">⛶ 全屏刷题</button>
       </div>
 
       <div v-if="sessionDone" class="done">
@@ -220,6 +227,8 @@ function reset() {
       </ul>
       <div v-else class="empty">暂无错题 🎉</div>
     </template>
+
+    <FullQuiz v-if="fullQuizOpen" />
   </div>
 </template>
 
