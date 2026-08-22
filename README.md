@@ -112,5 +112,5 @@ why: |
 - **Gitee Pages / 其它静态托管**：直接上传 `docs/.vitepress/dist` 且 `base = '/'`。
 - **Netlify / Vercel**：构建命令 `pnpm install && pnpm build`，发布目录 `docs/.vitepress/dist`，`base = '/'`。
 
-> ⚠️ 请把 `docs/.vitepress/config.mjs` 里的 `GITHUB_REPO` 默认占位地址换成你的仓库地址（发布后 CI 会自动注入真实地址）。
+> ⚠️ 仓库地址已配置为 `https://github.com/wuyuanzhan43-cyber/-`。首次部署前请在仓库 **Settings → Pages → 分支 → 选择「GitHub Actions」** 作为发布源，否则 CI 的 deploy 步骤不会生效。
 
