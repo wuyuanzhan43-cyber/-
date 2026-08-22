@@ -11,6 +11,7 @@ title: 总线与通信协议
 - [I2C vs SPI vs UART 的区别与选型](/guide/bus/q-bus)
 - [DMA 与中断/轮询](/guide/bus/q-dma)
 - [CAN 总线要点](/guide/bus/q-can)
+- [NOR vs NAND Flash](/guide/bus/q-flash-nor-nand)
 
 ## 学习建议
 

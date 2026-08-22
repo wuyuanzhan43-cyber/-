@@ -17,6 +17,9 @@ title: 操作系统与 RTOS
 - [RTOS 任务间通信：队列/事件组/任务通知](/guide/os/q-task-comm)
 - [中断嵌套与中断优先级](/guide/os/q-interrupt-nesting)
 - [看门狗（Watchdog）](/guide/os/q-watchdog)
+- [自旋锁 vs 睡眠锁](/guide/os/q-spinlock)
+- [系统调用 vs 库函数](/guide/os/q-syscall-libc)
+- [实时性与时延指标](/guide/os/q-realtime)
 
 ## 学习建议
 

@@ -13,6 +13,9 @@ title: Linux 基础
 - [设备树（Device Tree）的作用](/guide/linux/q-devicetree)
 - [proc 与 sysfs 的区别](/guide/linux/q-proc-sysfs)
 - [内存管理：kmalloc / vmalloc / 用户态 malloc](/guide/linux/q-mem-management)
+- [内存泄漏检测与 OOM](/guide/linux/q-oom-leak)
+- [mmap 映射与零拷贝](/guide/linux/q-mmap-zero-copy)
+- [Linux 驱动模型三件套](/guide/linux/q-driver-model)
 
 ## 学习建议
 

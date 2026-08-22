@@ -11,6 +11,7 @@ title: ARM 体系与启动
 - [ARM 异常向量表与启动流程](/guide/arm/q-exception-vector)
 - [MMU 与内存管理](/guide/arm/q-mmu)
 - [大小端（字节序）](/guide/arm/q-endian)
+- [STM32 启动过程](/guide/arm/q-stm32-boot)
 
 ## 学习建议
 

@@ -14,6 +14,7 @@ title: C/C++ 语言基础
 - [static 关键字的三种作用](/guide/c/q-static)
 - [栈与堆的区别与栈溢出](/guide/c/q-stack-heap)
 - [嵌入式位操作与位域](/guide/c/q-bit-ops)
+- [函数指针与回调](/guide/c/q-function-pointer)
 
 ## 学习建议
 
