@@ -14,6 +14,11 @@ title: 单片机理与开发基础
 - [定时器与 PWM](/guide/mcu/q-timer-pwm)
 - [STM32 时钟树](/guide/mcu/q-stm32-clock)
 - [Cortex-M 低功耗与唤醒（进阶）](/guide/mcu/q-cortexm-lowpower)
+- [STM32 中断配置（NVIC/EXTI）](/guide/mcu/q-nvic-exti)
+- [MCU 串口外设（收发/中断/DMA）](/guide/mcu/q-mcu-uart)
+- [RTC 实时时钟](/guide/mcu/q-rtc)
+- [位带操作（Cortex-M Bit-Band）](/guide/mcu/q-bit-band)
+- [MCU 内存映射与存储（Flash/RAM/外设）](/guide/mcu/q-mcu-memory-map)
 
 ## 学习建议
 

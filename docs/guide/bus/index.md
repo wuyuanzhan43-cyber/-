@@ -15,6 +15,11 @@ title: 总线与通信协议
 - [NOR vs NAND Flash](/guide/bus/q-flash-nor-nand)
 - [SPI 时序模式（CPOL/CPHA）](/guide/bus/q-spi-cpol-cpha)
 - [I2C 时序（Start/ACK/时钟拉伸）](/guide/bus/q-i2c-timing)
+- [UART 深入（帧格式/波特率/流控/电平）](/guide/bus/q-uart-deep)
+- [USB 基础（枚举/端点/描述符/传输）](/guide/bus/q-usb)
+- [以太网（MAC/PHY/嵌入式网络）](/guide/bus/q-ethernet)
+- [RS485 与 Modbus](/guide/bus/q-rs485-modbus)
+- [LIN 总线](/guide/bus/q-lin)
 
 ## 学习建议
 

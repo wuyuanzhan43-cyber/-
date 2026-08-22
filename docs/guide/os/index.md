@@ -24,6 +24,11 @@ title: 操作系统与 RTOS
 - [中断标志位与主循环协作](/guide/os/q-isr-main-coop)
 - [Linux 进程间通信（IPC）](/guide/os/q-ipc)
 - [FreeRTOS 队列与内存管理](/guide/os/q-freertos-memory)
+- [进程调度算法](/guide/os/q-scheduling)
+- [进程生命周期（僵尸/孤儿/守护）](/guide/os/q-process-lifecycle)
+- [虚拟内存与分页（缺页/置换）](/guide/os/q-virtual-memory)
+- [线程同步进阶（条件变量/读写锁/原子）](/guide/os/q-thread-sync)
+- [多核：SMP / AMP 与核间通信](/guide/os/q-multicore)
 
 ## 学习建议
 
