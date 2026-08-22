@@ -72,4 +72,25 @@ dma_unmap_single(dev, dma, len, DMA_TO_DEVICE);
 - `dma_alloc_coherent` 和 `dma_map_single` 区别？——前者一致性映射（免手动同步，适合持续），后者流式（每传输做一次 sync）。
 - 为什么要内存屏障？——保证 CPU/DMA 的访问顺序，防乱序。
 
-> 📌 一句话记忆：**DMA 绕 cache 直访内存会不一致：CPU→设备要 flush(写回)，设备→CPU 要 invalidate(失效)；用 dma_map_/dma_alloc_coherent + 内存屏障。**
+### ★ 深入：为什么 DMA 会遇到 cache 问题（什么时候会“炸”）
+
+**一句话根源**：CPU 有 **cache（多级、写回）**，DMA **直连物理内存、不经过 cache**。二者**看到的是同一个物理地址，但“最新值”可能只在 cache / 只在内存**，于是不一致。
+
+**关键点：现代 CPU 是多级 + 写回 cache**。CPU“写”往往先写进 cache（脏行），**不一定立刻回写内存**；CPU“读”先看 cache，命中就不访内存。DMA 却**直接读写物理内存**。
+
+**两个方向的“炸点”**：
+
+| 方向 | 什么时候出问题 | 表现 |
+|---|---|---|
+| CPU 写 → DMA 读 | CPU 把数据写进 cache 未回写，DMA 读内存读到**旧值** | DMA 收了旧数据 |
+| DMA 写 → CPU 读 | DMA 把数据写进内存，但 CPU cache 里还是**旧值（脏）** | CPU 读到旧数据/脏数据 |
+
+**具体什么时候会“炸”**（工程里的高频触发场景）：
+- **刚用 `cpu` 代码填好缓冲，交给 DMA 发出去**：没 flush → DMA 发出的是 cache 里的旧值。
+- **DMA 搬完数据，CPU 立刻去读缓冲区**：没 invalidate → CPU 读到的是 cache 旧值。
+- **DMA 与 CPU 同时访问同一块内存**（如网络收包、图像缓冲、双缓冲）→ 数据错乱。
+- **缓存一致性仅靠“关 cache”**：不精确、性能差、还可能遗漏。
+
+**为什么不能只“关 cache”就行**：整片关影响所有代码的数据一致性/性能；正确做法是**只对 DMA 涉及的缓冲做 flush/invalidate**（`dma_map_*/dma_alloc_coherent`），并加**内存屏障**保证顺序。
+
+> 📌 一句话记忆：**DMA 绕 cache 直访内存会不一致：CPU→设备要 flush(写回)，设备→CPU 要 invalidate(失效)；用 dma_map_/dma_alloc_coherent + 内存屏障；根源是“最新值可能在 cache 或内存，而 DMA 只认内存”。**
