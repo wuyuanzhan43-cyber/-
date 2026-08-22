@@ -18,10 +18,20 @@ const active = ref('quiz')
 
 // ------- 自测队列 -------
 const mode = ref('due') // 'due' 复习到期 | 'all' 全部
+const shuffle = ref(false)
 const queue = ref([])
 const idx = ref(0)
 const revealed = ref(false)
 const sessionDone = ref(false)
+
+function shuffleArray(arr) {
+  const a = arr.slice()
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
 
 function buildQueue(m) {
   if (!inBrowser) return
@@ -37,10 +47,16 @@ function buildQueue(m) {
   } else {
     ids = deck.map((c) => c.id)
   }
+  if (shuffle.value) ids = shuffleArray(ids)
   queue.value = ids
   idx.value = 0
   revealed.value = false
   sessionDone.value = ids.length === 0
+}
+
+function toggleShuffle() {
+  shuffle.value = !shuffle.value
+  buildQueue(mode.value)
 }
 
 const current = computed(() => byId.value[queue.value[idx.value]] || null)
@@ -118,6 +134,7 @@ function reset() {
       <div class="quiz-toolbar">
         <button class="mini" :class="{ on: mode === 'due' }" @click="switchMode('due')">复习到期</button>
         <button class="mini" :class="{ on: mode === 'all' }" @click="switchMode('all')">全部自测</button>
+        <button class="mini" :class="{ on: shuffle }" @click="toggleShuffle">🔀 乱序</button>
         <span class="progress">{{ progressText }}</span>
         <button class="mini ghost" @click="startQuiz">重新开始</button>
       </div>

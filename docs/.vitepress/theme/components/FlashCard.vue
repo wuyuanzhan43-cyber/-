@@ -1,11 +1,12 @@
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
-import { useData, inBrowser } from 'vitepress'
+import { ref, computed, watch, onMounted, inject } from 'vue'
+import { useData, inBrowser, withBase } from 'vitepress'
 import CardBadge from './CardBadge.vue'
 import { getCardState, schedule, getStats } from '../storage'
 import { renderMd } from '../md'
 
 const { page } = useData()
+const deck = inject('deck', [])
 
 // 从当前页 front-matter 读取题卡数据
 const fm = computed(() => page.value.frontmatter || {})
@@ -44,6 +45,15 @@ const statusText = computed(() => {
   if (c.box >= 2) return '🟡 复习中'
   return ''
 })
+
+// 相关题目：同分类的其他题卡
+const related = computed(() => {
+  const cat = fm.value.category
+  if (!cat) return []
+  return deck
+    .filter((c) => c.category === cat && c.id !== id.value)
+    .slice(0, 8)
+})
 </script>
 
 <template>
@@ -79,6 +89,16 @@ const statusText = computed(() => {
 
     <div class="fc-hint">答案与讲解记录到本地进度，支撑「记忆曲线 / 错题本」。</div>
 
+    <div v-if="related.length" class="fc-related">
+      <div class="fc-label">📚 相关题目</div>
+      <div class="fc-rel-list">
+        <a v-for="c in related" :key="c.id" class="fc-rel" :href="withBase(c.route)">
+          <span class="fc-rel-title">{{ c.title }}</span>
+          <span class="fc-rel-diff">{{ '★'.repeat(c.difficulty || 2) }}</span>
+        </a>
+      </div>
+    </div>
+
     <AIExplain :title="title" :answer="answer" :why="why" />
   </section>
 </template>
@@ -109,4 +129,10 @@ const statusText = computed(() => {
 .btn.again { background: #f56c6c; }
 .btn.good { background: #67c23a; }
 .fc-hint { margin-top: 12px; font-size: 12px; color: var(--vp-c-text-3); }
+.fc-related { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--vp-c-divider); }
+.fc-rel-list { display: flex; flex-direction: column; gap: 6px; }
+.fc-rel { display: flex; justify-content: space-between; align-items: center; gap: 10px; text-decoration: none; padding: 6px 10px; border: 1px solid var(--vp-c-divider); border-radius: 8px; background: var(--vp-c-bg); }
+.fc-rel:hover { border-color: var(--vp-c-brand); color: var(--vp-c-brand-1); }
+.fc-rel-title { color: var(--vp-c-text-1); font-size: 14px; }
+.fc-rel-diff { color: var(--vp-c-brand-1); font-size: 12px; letter-spacing: -1px; flex: none; }
 </style>
