@@ -20,6 +20,8 @@ title: 操作系统与 RTOS
 - [自旋锁 vs 睡眠锁](/guide/os/q-spinlock)
 - [系统调用 vs 库函数](/guide/os/q-syscall-libc)
 - [实时性与时延指标](/guide/os/q-realtime)
+- [RTOS 调度与时间片](/guide/os/q-rtos-schedule)
+- [中断标志位与主循环协作](/guide/os/q-isr-main-coop)
 
 ## 学习建议
 

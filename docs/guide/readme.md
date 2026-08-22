@@ -25,8 +25,9 @@ title: 手册说明
 - 操作系统与 RTOS
 - Linux 基础（启动/设备树/驱动）
 - ARM 体系与启动
-- 总线与通信协议（I2C/SPI/UART/CAN、DMA）
-- 工具链与构建（编译链接、Makefile）
+- 总线与通信协议（I2C/SPI/UART/CAN、DMA、Flash）
+- 单片机理与开发基础（GPIO、低功耗）
+- 工具链与构建（编译链接、Makefile、交叉编译）
 - 方法论与真题
 
 ## 如何使用
@@ -44,6 +45,7 @@ title: 手册说明
 - [Linux 基础](/guide/linux/)
 - [ARM 体系与启动](/guide/arm/)
 - [总线与通信协议](/guide/bus/)
+- [单片机理与开发基础](/guide/mcu/)
 - [工具链与构建](/guide/toolchain/)
 - [方法论与真题](/guide/method/)
 

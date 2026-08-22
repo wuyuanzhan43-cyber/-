@@ -18,3 +18,37 @@ html { scroll-behavior: smooth; }
 
 /* 内联代码配色 */
 .vp-doc :not(pre) > code { color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); }
+
+/* ===== 目录树高亮：强化当前页与所在分类 ===== */
+/* 当前激活的侧边栏链接：加粗 + 品牌色 + 浅底 */
+.VPSidebarItem .link.is-active {
+  color: var(--vp-c-brand-1);
+  font-weight: 700;
+  background: var(--vp-c-brand-soft);
+  border-radius: 6px;
+}
+/* 当前激活项左侧强调竖条 */
+.VPSidebarItem .link.is-active {
+  position: relative;
+}
+.VPSidebarItem .link.is-active::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--vp-c-brand);
+  border-radius: 2px;
+}
+/* 所在分类组标题：当组内有激活项时也点色（:has 现代浏览器支持） */
+.VPSidebarItem:has(> .items .link.is-active) > .item > .text {
+  color: var(--vp-c-brand-1);
+  font-weight: 700;
+}
+/* 目录树里的“高频题”分组标题弱一点，保持层级可读 */
+.sidebar .VPSidebarItem.level-2 > .item > .text {
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+}

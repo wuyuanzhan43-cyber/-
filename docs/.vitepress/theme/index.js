@@ -2,6 +2,7 @@ import DefaultTheme from 'vitepress/theme'
 import { inBrowser } from 'vitepress'
 import './custom.css'
 
+import Layout from './Layout.vue'
 import FlashCard from './components/FlashCard.vue'
 import CardBadge from './components/CardBadge.vue'
 import AIExplain from './components/AIExplain.vue'
@@ -11,6 +12,7 @@ import { loadDeck } from './deck'
 
 export default {
   extends: DefaultTheme,
+  Layout,
   enhanceApp({ app }) {
     // 注册全局组件：题卡正文里直接用 <FlashCard />
     app.component('FlashCard', FlashCard)

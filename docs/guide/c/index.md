@@ -15,6 +15,9 @@ title: C/C++ 语言基础
 - [栈与堆的区别与栈溢出](/guide/c/q-stack-heap)
 - [嵌入式位操作与位域](/guide/c/q-bit-ops)
 - [函数指针与回调](/guide/c/q-function-pointer)
+- [无符号数与整型陷阱](/guide/c/q-unsigned-trap)
+- [宏 vs 内联函数 vs 静态断言](/guide/c/q-macro-inline)
+- [内存池与静态分配](/guide/c/q-memory-pool)
 
 ## 学习建议
 

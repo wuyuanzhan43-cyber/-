@@ -16,6 +16,8 @@ title: Linux 基础
 - [内存泄漏检测与 OOM](/guide/linux/q-oom-leak)
 - [mmap 映射与零拷贝](/guide/linux/q-mmap-zero-copy)
 - [Linux 驱动模型三件套](/guide/linux/q-driver-model)
+- [内核模块与参数](/guide/linux/q-kernel-module)
+- [字符设备驱动开发流程](/guide/linux/q-char-driver)
 
 ## 学习建议
 
