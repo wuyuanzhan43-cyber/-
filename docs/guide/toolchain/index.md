@@ -11,6 +11,7 @@ title: 工具链与构建
 - [编译与链接的四个阶段 & 静态库 vs 动态库](/guide/toolchain/q-build-link)
 - [Makefile 基础要点](/guide/toolchain/q-makefile)
 - [交叉编译](/guide/toolchain/q-cross-compile)
+- [gcc 优化等级与 volatile](/guide/toolchain/q-opt)
 
 ## 学习建议
 

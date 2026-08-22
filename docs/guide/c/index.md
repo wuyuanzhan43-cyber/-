@@ -18,6 +18,11 @@ title: C/C++ 语言基础
 - [无符号数与整型陷阱](/guide/c/q-unsigned-trap)
 - [宏 vs 内联函数 vs 静态断言](/guide/c/q-macro-inline)
 - [内存池与静态分配](/guide/c/q-memory-pool)
+- [数组指针 vs 指针数组](/guide/c/q-pointer-array)
+- [extern 与头文件的作用](/guide/c/q-extern)
+- [程序内存布局（代码/data/bss/堆/栈）](/guide/c/q-memory-layout)
+- [联合体（union）与大小端/协议](/guide/c/q-union)
+- [可重入函数与线程安全](/guide/c/q-reentrant)
 
 ## 学习建议
 

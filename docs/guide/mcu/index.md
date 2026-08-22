@@ -10,6 +10,8 @@ title: 单片机理与开发基础
 
 - [GPIO 配置与上下拉](/guide/mcu/q-gpio-config)
 - [低功耗与电源管理](/guide/mcu/q-low-power)
+- [ADC 采样与滤波](/guide/mcu/q-adc)
+- [定时器与 PWM](/guide/mcu/q-timer-pwm)
 
 ## 学习建议
 

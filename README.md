@@ -78,7 +78,7 @@ why: |
 ## 路线图
 
 - [x] 骨架 + 交互（自测/记忆曲线/错题本）
-- [x] ~50 道核心高频题（求深不求全）
+- [x] ~60 道核心高频题（求深不求全）
 - [x] AI 讲解（BYO Key，锚定标准答案）
 - [x] 目录树高亮 + 学习进度点亮
 - [ ] 更多章节与题量
@@ -115,4 +115,17 @@ why: |
 - **Netlify / Vercel**：构建命令 `pnpm install && pnpm build`，发布目录 `docs/.vitepress/dist`，`base = '/'`。
 
 > ⚠️ 仓库地址已配置为 `https://github.com/wuyuanzhan43-cyber/-`。首次部署前请在仓库 **Settings → Pages → 分支 → 选择「GitHub Actions」** 作为发布源，否则 CI 的 deploy 步骤不会生效。
+
+## 参考来源
+
+题库选材参考了网上高频嵌入式面试考点，主要有：
+- [速通嵌入式八股文：一篇文章打通面试高频点（牛客）](https://api-cdn.nowcoder.com/discuss/830092297067888640)
+- [嵌入式软件必刷题单（牛客）](https://www.nowcoder.com/feed/main/detail/6fd854bef58441818f1427c152e6b6f8)
+- [嵌入式软件八股文：C 语言、硬件与操作系统基础（腾讯云开发者）](https://cloud.tencent.cn/developer/article/2595424)
+- [嵌入式 Linux 驱动开发面试 20 问与实战解析（CSDN）](https://blog.csdn.net/weixin_30727835/article/details/96456670)
+- [嵌入式开发高频面试题全解析：内存操作等核心知识点（CSDN）](https://blog.csdn.net/2301_76903795/article/details/147600485)
+- [200 道 C 语言面试题全解析（CSDN）](https://blog.csdn.net/x1649545783/article/details/162068414)
+- [嵌入式 Linux 系统开发面试必备题库（CSDN 文库）](https://wenku.csdn.net/doc/2rd92561nz)
+- [Embedded Developer Interview Questions (InterviewStack)](https://interviewstack.io/preparation-guide/general/embedded_developer/mid_level)
+
 
