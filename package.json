@@ -1,0 +1,21 @@
+{
+  "name": "embedded-eightbag-handbook",
+  "version": "0.1.0",
+  "private": true,
+  "description": "嵌入式八股面试手册：题卡 + 标准答案 + 为什么 + 自测（纯静态本地优先）",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "proofread": "node scripts/proofread.mjs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  }
+}

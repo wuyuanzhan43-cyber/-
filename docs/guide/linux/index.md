@@ -1,0 +1,19 @@
+---
+title: Linux 基础
+---
+
+# Linux 基础
+
+> 面向嵌入式 Linux 开发的核心问题：从上电到用户态的启动链路、设备模型、设备树、内核接口。
+
+## 高频题
+
+- [Linux 系统启动流程（上电到应用）](/guide/linux/q-boot)
+- [字符设备 vs 块设备](/guide/linux/q-char-block)
+- [设备树（Device Tree）的作用](/guide/linux/q-devicetree)
+- [proc 与 sysfs 的区别](/guide/linux/q-proc-sysfs)
+- [内存管理：kmalloc / vmalloc / 用户态 malloc](/guide/linux/q-mem-management)
+
+## 学习建议
+
+把「启动链路、设备模型（总线/驱动/设备三件套）、设备树（描述硬件）与内核接口（sysfs/proc）」串起来，就能答出嵌入式 Linux 驱动开发的“地图”。
