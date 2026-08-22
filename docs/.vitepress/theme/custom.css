@@ -52,3 +52,19 @@ html { scroll-behavior: smooth; }
   font-size: 12px;
   color: var(--vp-c-text-3);
 }
+
+/* ===== 题卡内 Markdown 渲染的文本块（fc-body / ans-body / ai-body）===== */
+.fc-body p, .ans-body p, .ai-body p { margin: 0 0 6px; }
+.fc-body p:last-child, .ans-body p:last-child, .ai-body p:last-child { margin-bottom: 0; }
+.fc-body ul, .ans-body ul, .ai-body ul { margin: 6px 0; padding-left: 20px; }
+.fc-body li, .ans-body li, .ai-body li { margin: 2px 0; }
+.fc-body strong, .ans-body strong, .ai-body strong { color: var(--vp-c-text-1); }
+.fc-body code, .ans-body code, .ai-body code {
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  padding: 1px 5px; border-radius: 4px; font-size: 0.9em;
+}
+.fc-body a, .ans-body a, .ai-body a { color: var(--vp-c-brand-1); }
+/* AI 结果块保留换行但按 HTML 排版 */
+.ai-body { line-height: 1.75; }
+.ai-body br { line-height: 1.4; }

@@ -2,6 +2,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { inBrowser } from 'vitepress'
 import { getAIConfig, setAIConfig, hasAIKey, chatAI, buildMessages } from '../ai'
+import { renderMd } from '../md'
 
 const props = defineProps({
   title: { type: String, default: '' },
@@ -89,7 +90,7 @@ function toggleSettings() {
         <span>💬 AI 讲解</span>
         <button class="ai-ghost" @click="copyResult">复制</button>
       </div>
-      <pre class="ai-body">{{ result }}</pre>
+      <div class="ai-body" v-html="renderMd(result)"></div>
     </div>
   </div>
 </template>
@@ -110,5 +111,5 @@ function toggleSettings() {
 .ai-error { margin-top: 10px; font-size: 13px; color: var(--vp-c-danger-1); background: var(--vp-c-danger-soft); padding: 8px 10px; border-radius: 8px; }
 .ai-result { margin-top: 12px; border: 1px solid var(--vp-c-divider); border-radius: 10px; background: var(--vp-c-bg-soft); padding: 12px 14px; }
 .ai-result-head { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--vp-c-text-2); margin-bottom: 8px; }
-.ai-body { white-space: pre-wrap; font-family: inherit; font-size: 14px; line-height: 1.75; color: var(--vp-c-text-1); margin: 0; }
+.ai-body { font-family: inherit; font-size: 14px; line-height: 1.75; color: var(--vp-c-text-1); margin: 0; }
 </style>

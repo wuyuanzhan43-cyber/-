@@ -1,5 +1,14 @@
 # 更新日志 / Changelog
 
+## 0.5.1（2026-08）
+
+### 修复
+- **题卡「标准答案 / 为什么」不再显示裸 Markdown 标记**：改用 `markdown-it` 渲染，`**加粗**` 变粗体、`- ` 变列表、`` `代码` `` 变行内代码，页面更整洁（原先把 `**`、`-` 当纯字符显示，符号显得很乱）。
+- 新增 `docs/.vitepress/theme/md.js`（Markdown 渲染工具）；`FlashCard`、`StudyView`、`AIExplain` 的答案/讲解统一走它；`package.json` 增加 `markdown-it` 依赖。
+
+### 说明
+- 题卡数量：50；其他不变。
+
 ## 0.5.0（2026-08）
 
 ### 新增

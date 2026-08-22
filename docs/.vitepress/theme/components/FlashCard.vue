@@ -3,6 +3,7 @@ import { ref, computed, watch, onMounted } from 'vue'
 import { useData, inBrowser } from 'vitepress'
 import CardBadge from './CardBadge.vue'
 import { getCardState, schedule, getStats } from '../storage'
+import { renderMd } from '../md'
 
 const { page } = useData()
 
@@ -63,11 +64,11 @@ const statusText = computed(() => {
     <template v-else>
       <div class="fc-answer">
         <div class="fc-label">✅ 标准答案</div>
-        <div class="fc-body">{{ answer }}</div>
+        <div class="fc-body" v-html="renderMd(answer)"></div>
       </div>
       <div v-if="why" class="fc-why">
         <div class="fc-label">💡 为什么（讲解）</div>
-        <div class="fc-body">{{ why }}</div>
+        <div class="fc-body" v-html="renderMd(why)"></div>
       </div>
       <div class="fc-rate">
         <span class="fs-14">自测打分：</span>
@@ -96,7 +97,7 @@ const statusText = computed(() => {
 .fc-title { font-size: 17px; font-weight: 700; line-height: 1.5; }
 .fc-question { margin-bottom: 12px; }
 .fc-answer, .fc-why { margin: 10px 0; }
-.fc-body { font-size: 15px; line-height: 1.7; white-space: pre-wrap; }
+.fc-body { font-size: 15px; line-height: 1.7; }
 .fc-rate { display: flex; align-items: center; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
 .fs-14 { font-size: 14px; color: var(--vp-c-text-2); }
 .btn {

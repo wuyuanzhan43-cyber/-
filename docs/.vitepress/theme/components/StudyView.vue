@@ -4,6 +4,7 @@ import { inBrowser, withBase } from 'vitepress'
 import {
   initProgress, getCardState, schedule, getDueIds, getWrongIds, getStats, resetAll,
 } from '../storage'
+import { renderMd } from '../md'
 
 const deck = inject('deck', [])
 const byId = computed(() => Object.fromEntries(deck.map((c) => [c.id, c])))
@@ -141,11 +142,11 @@ function reset() {
         <template v-else>
           <div class="answer-box">
             <div class="ans-label">✅ 标准答案</div>
-            <div class="ans-body">{{ current.answer }}</div>
+            <div class="ans-body" v-html="renderMd(current.answer)"></div>
           </div>
           <div v-if="current.why" class="answer-box why">
             <div class="ans-label">💡 为什么</div>
-            <div class="ans-body">{{ current.why }}</div>
+            <div class="ans-body" v-html="renderMd(current.why)"></div>
           </div>
           <p class="linkline">📖 想看图解 / 深读 → <a :href="withBase(current.route)">阅读页</a></p>
           <div class="rate">
@@ -217,7 +218,7 @@ function reset() {
 .q-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; line-height: 1.5; }
 .answer-box { margin: 12px 0; background: var(--vp-c-bg); border: 1px solid var(--vp-c-divider); border-radius: 10px; padding: 12px 14px; }
 .ans-label { font-size: 12px; color: var(--vp-c-text-3); margin-bottom: 4px; }
-.ans-body { font-size: 15px; line-height: 1.75; white-space: pre-wrap; }
+.ans-body { font-size: 15px; line-height: 1.75; }
 .answer-box.why { background: var(--vp-c-brand-soft); border-color: var(--vp-c-brand-soft); }
 .linkline { font-size: 13px; color: var(--vp-c-text-2); }
 .rate { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
