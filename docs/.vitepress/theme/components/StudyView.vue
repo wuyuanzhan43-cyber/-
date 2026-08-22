@@ -5,12 +5,14 @@ import {
   initProgress, getCardState, schedule, getDueIds, getWrongIds, getStats, resetAll,
 } from '../storage'
 import { renderMd } from '../md'
+import QuizBrowse from './QuizBrowse.vue'
 
 const deck = inject('deck', [])
 const byId = computed(() => Object.fromEntries(deck.map((c) => [c.id, c])))
 
 const tabs = [
   { key: 'quiz', label: '自测' },
+  { key: 'browse', label: '题单' },
   { key: 'progress', label: '进度概览' },
   { key: 'wrong', label: '错题本' },
 ]
@@ -173,6 +175,11 @@ function reset() {
           <AIExplain :title="current.title" :answer="current.answer" :why="current.why" />
         </template>
       </div>
+    </template>
+
+    <!-- 题单（浏览刷题：侧栏分组 + 点击展开 + 展开/折叠全部 + 高亮当前题） -->
+    <template v-else-if="active === 'browse'">
+      <QuizBrowse />
     </template>
 
     <!-- 进度概览 -->
