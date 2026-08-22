@@ -13,6 +13,7 @@ title: 单片机理与开发基础
 - [ADC 采样与滤波](/guide/mcu/q-adc)
 - [定时器与 PWM](/guide/mcu/q-timer-pwm)
 - [STM32 时钟树](/guide/mcu/q-stm32-clock)
+- [Cortex-M 低功耗与唤醒（进阶）](/guide/mcu/q-cortexm-lowpower)
 
 ## 学习建议
 
