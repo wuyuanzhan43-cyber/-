@@ -23,6 +23,7 @@ title: 操作系统与 RTOS
 - [RTOS 调度与时间片](/guide/os/q-rtos-schedule)
 - [中断标志位与主循环协作](/guide/os/q-isr-main-coop)
 - [Linux 进程间通信（IPC）](/guide/os/q-ipc)
+- [FreeRTOS 队列与内存管理](/guide/os/q-freertos-memory)
 
 ## 学习建议
 

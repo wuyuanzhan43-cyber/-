@@ -19,6 +19,7 @@ title: Linux 基础
 - [内核模块与参数](/guide/linux/q-kernel-module)
 - [字符设备驱动开发流程](/guide/linux/q-char-driver)
 - [TCP 三次握手与四次挥手](/guide/linux/q-tcp-handshake)
+- [DMA 与 Cache 一致性](/guide/linux/q-dma-cache)
 
 ## 学习建议
 

@@ -23,6 +23,7 @@ title: C/C++ 语言基础
 - [程序内存布局（代码/data/bss/堆/栈）](/guide/c/q-memory-layout)
 - [联合体（union）与大小端/协议](/guide/c/q-union)
 - [可重入函数与线程安全](/guide/c/q-reentrant)
+- [位域做协议解析（可移植性）](/guide/c/q-bitfield-protocol)
 
 ## 学习建议
 

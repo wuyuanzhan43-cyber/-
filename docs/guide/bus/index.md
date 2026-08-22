@@ -13,6 +13,7 @@ title: 总线与通信协议
 - [CAN 总线要点](/guide/bus/q-can)
 - [NOR vs NAND Flash](/guide/bus/q-flash-nor-nand)
 - [SPI 时序模式（CPOL/CPHA）](/guide/bus/q-spi-cpol-cpha)
+- [I2C 时序（Start/ACK/时钟拉伸）](/guide/bus/q-i2c-timing)
 
 ## 学习建议
 
