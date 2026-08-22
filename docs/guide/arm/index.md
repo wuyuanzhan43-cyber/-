@@ -17,6 +17,7 @@ title: ARM 体系与启动
 - [中断控制器：NVIC 与 GIC](/guide/arm/q-nvic-gic)
 - [MMU vs MPU（内存管理/保护单元）](/guide/arm/q-mmu-vs-mpu)
 - [MMU 与内存管理](/guide/arm/q-mmu)
+- [Cortex-M 硬件基础与 FreeRTOS 移植](/guide/arm/q-cortexm-port)
 
 ## 学习建议
 

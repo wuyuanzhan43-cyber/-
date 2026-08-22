@@ -29,6 +29,9 @@ title: 操作系统与 RTOS
 - [多核：SMP / AMP 与核间通信](/guide/os/q-multicore)
 - [实时性与时延指标](/guide/os/q-realtime)
 - [看门狗（Watchdog）](/guide/os/q-watchdog)
+- [FreeRTOS 任务管理与调度源码](/guide/os/q-freertos-task-src)
+- [FreeRTOS 队列源码（环形缓冲与阻塞）](/guide/os/q-freertos-queue-src)
+- [OSAL 抽象层设计意图](/guide/os/q-osal)
 
 ## 学习建议
 

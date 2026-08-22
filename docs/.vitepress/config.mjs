@@ -94,6 +94,9 @@ const sidebar = [
           { text: '多核 SMP/AMP', link: '/guide/os/q-multicore' },
           { text: '实时性与时延', link: '/guide/os/q-realtime' },
           { text: '看门狗 Watchdog', link: '/guide/os/q-watchdog' },
+          { text: 'FreeRTOS 任务与调度源码', link: '/guide/os/q-freertos-task-src' },
+          { text: 'FreeRTOS 队列源码', link: '/guide/os/q-freertos-queue-src' },
+          { text: 'OSAL 抽象层', link: '/guide/os/q-osal' },
         ],
       },
     ],
@@ -139,6 +142,7 @@ const sidebar = [
           { text: '中断控制器 NVIC/GIC', link: '/guide/arm/q-nvic-gic' },
           { text: 'MMU vs MPU', link: '/guide/arm/q-mmu-vs-mpu' },
           { text: 'MMU 与内存管理', link: '/guide/arm/q-mmu' },
+          { text: 'Cortex-M 硬件与 FreeRTOS 移植', link: '/guide/arm/q-cortexm-port' },
         ],
       },
     ],
@@ -211,6 +215,7 @@ const sidebar = [
     collapsed: false,
     items: [
       { text: '备考与方法论', link: '/guide/method/' },
+      { text: '面试金句速记', link: '/guide/method/quotes' },
     ],
   },
 ]
