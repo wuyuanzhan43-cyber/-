@@ -63,4 +63,28 @@ why: |
 - 互斥锁能当信号量吗？——不理想，因为它强调 owner 且不便于“计数多次事件”。
 - 中断里能用信号量吗？——只能“give”（发，且用中断安全版本 `FromISR`），不能“take 阻塞”。
 
+### ★ 参考题解精华
+
+> 摘自 FreeRTOS 内核面试题集（V11.1.0 源码），补充「互斥锁底层复用 + 优先级继承/反转的源码细节」。（反转的场景化推演见「RTOS 优先级反转 q-priority-inversion」。）
+
+**① 底层：互斥锁、信号量、队列共用一套 `Queue_t`**
+
+| 字段 | 数据队列 | 信号量 | 互斥锁 |
+|---|---|---|---|
+| `uxItemSize` | >0 | 0 | 0 |
+| `pcHead` | 真实缓冲 | 指向自身 | `NULL`（类型标记） |
+| `uxMessagesWaiting` | item 数 | 资源计数 | 1=开锁 0=上锁 |
+
+- `uxItemSize==0` → `prvCopyDataToQueue/FromQueue` 不做 `memcpy`，只动计数器。互斥锁额外用 `pcHead==NULL` + union 里的 `xMutexHolder`（持有者）、`uxRecursiveCallCount`（递归深度）实现“所有权 + 优先级继承”。
+- 这也解释了“为什么信号量没所有权 / 互斥锁有主人”：信号量只操作一个计数器（任何任务都能 give/take），互斥锁则记录持有者与继承状态。
+
+**② 优先级反转怎么发生 + 继承怎么治（源码细节）**
+
+- 经典场景 H/M/L：L 持锁 → H 抢入申请锁被阻塞 → M（与锁无关）就绪**抢占 L** → L 得不到 CPU → **H 被无名地拖进无限期等待**。
+- **无继承**：能反转；**有继承**：H 申请锁时，内核检测到 H 优先级高于持有者 L，**临时把 L 提升到 H 的级别**，M 抢不动 L → L 尽快释放 → H 恢复后 L 级回退。
+- 源码：Take 成功后 `pxQueue->u.xSemaphore.xMutexHolder = xTaskIncrementMutexHeldCount()`；阻塞前 `xTaskPriorityInherit(xMutexHolder)` 提级；Give 时 `xTaskPriorityDisinherit()` **降回“等待者中的最高优先级”或基础优先级**（继承是临时、传递的）。
+> 💡 一句话：**反转=高优被“持锁的低优 + 插队的中优”拖住；互斥锁=真带继承（记录 xMutexHolder + 临时提级/归还），裸信号量只计数、不救。**
+
+> ⚠️ 别把“互斥锁很完美”当唯一结论：**继承只是压缩等待，仍可能有死锁/并发下降**——见「RTOS 优先级反转（q-priority-inversion）」的继承 vs 天花板对比，以及「死锁四条件（q-deadlock）」。选型与误用见本卡「什么时候用哪个」。
+
 > 📌 一句话记忆：**Mutex = “只准一人进的门”（有主、带继承）；Semaphore = “计数/发信号的牌”（无主、可计数）。**

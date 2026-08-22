@@ -68,4 +68,37 @@ why: |
 - 队列和事件组选哪个？——要传数据用队列；只要“标志/多事件”用事件组，更轻。
 - 任务通知能代替队列吗？——轻量单播可以部分代替，但多份数据/多来源要队列。
 
+### ★ 参考题解精华
+
+> 摘自 FreeRTOS 内核面试题集（V11.1.0 源码），补充「事件组 / 任务通知」的源码级落地细节与选型。（队列内部结构见「FreeRTOS 队列与内存管理 q-freertos-memory」。）
+
+**① 事件组：只有低 24 位可用；唤醒“所有满足者”而非最高优**
+
+- `EventGroup_t` = `uxEventBits`（各 bit 值）+ `xTasksWaitingForBits`（等待链）；`EventBits_t` 最高 **8 位被内核保留**（`0xFF000000`），用户实际只有 **24 个事件位**。
+- 高 8 位在任务阻塞时被塞进 `xEventListItem.xItemValue`：bit24=`WAIT_FOR_ALL_BITS`（AND/OR）、bit25=`CLEAR_ON_EXIT`（唤醒时是否自动清 bit）、bit26=`UNBLOCK_DUE_TO_BIT_SET`（为什么醒来：bit 匹配 or 超时）。
+- AND/OR 由 `xWaitForAllBits` 区分：`(cur & wait)==wait`（AND，全部满足） vs `(cur & wait)!=0`（OR，任一满足）。
+- **等待链用 `vTaskPlaceOnUnorderedEventList` 不排序**：因为 `SetBits` 会**唤醒所有条件满足的任务**（不论优先级），逐个遍历判断；而队列 `xQueueSend` 只唤醒**一个**最高优等待者，所以队列的等链才按优先级排序。
+- `xEventGroupSync` = SetBits + WaitBits 的原子组合，实现多任务**栅栏/会合点**；超时返回时返回值**不含** `UNBLOCK_DUE_TO_BIT_SET` → 调用者知道同步失败。
+- `xEventGroupSetBitsFromISR` **不在 ISR 里直接操作链表**，而是经 `xTimerPendFunctionCallFromISR` 借道 **Timer Daemon Task** 在任务上下文里执行“遍历+摘链+入就绪”这些重活。
+> 💡 一句话：**事件组=低 24 位的多事件标志；等链不排序（一次唤醒所有满足者）；ISR 里设位走 Timer Daemon，ISR 只标记意图。**
+
+**② 任务通知：零拷贝、轻量，但单播**
+
+- **快在哪**：队列 Send 要两次 `memcpy`（发送者→队列存储→接收者），任务通知直接写目标 TCB 的 `ulNotifiedValue`——**零拷贝、零中间存储**；且每任务创建时自带通知，无 Queue_t（约 84 字节 + 缓冲）的开销，每通知槽只 4 字节。
+
+| `eNotifyAction` | 效果 | 代替什么 |
+|---|---|---|
+| `eNoAction` | 只唤醒 | 二值信号量 |
+| `eSetBits` | `\|=` | 事件组 |
+| `eIncrement` | `++` | 计数信号量 |
+| `eSetValueWithOverwrite` | `=` 覆盖 | 发最新数据（旧值覆盖） |
+| `eSetValueWithoutOverwrite` | 仅“未被读”时写 | 保证不丢（上次没消费本次丢弃） |
+
+- `ulTaskNotifyTake` = **计数语义**（每 Take 递减/清零，配 `xTaskNotifyGive` → `eIncrement`）；`xTaskNotifyWait` = **值/bit 语义**（按 bit mask 清零，配 `xTaskNotify` 任意动作）。
+- `xTaskNotify`（任务上下文）内部传 `NULL`；`xTaskNotifyFromISR` 传 `pxHigherPriorityTaskWoken`——ISR 内不能立刻 `taskYIELD`，唤醒更高优就置位，`portEND_SWITCHING_ISR(pxHigherPriorityTaskWoken)` 在 ISR 结束后再触发 PendSV。
+- **局限（何时必须用队列）**：单播（只能发给指定任务）、无广播、无数据缓冲（只有 32 位）、**发送者永不阻塞（无法反压）**。多对一、一对多广播、需流控反压、要传 >32 位/结构体 → 都得用队列。
+> 💡 一句话：**通知=直接写 TCB + 零拷贝 + 轻量单播，适合一对一轻量信号；要搬数据/广播/反压就用队列。**
+
+**③ 选型金句**：传数据→队列；多事件→事件组；计数/同步→信号量；护资源→互斥锁；轻量单播→任务通知。通知做不了就自问“要不要广播/缓冲/反压”，要就回队列。
+
 > 📌 一句话记忆：**传数据→队列；多事件→事件组；计数/同步→信号量；护共享资源→互斥锁；低延迟单播→任务通知；中断里只能 give/发，不能阻塞。**

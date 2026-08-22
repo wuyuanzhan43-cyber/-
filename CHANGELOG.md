@@ -1,5 +1,17 @@
 # 更新日志 / Changelog
 
+## 0.15.0（2026-08）
+
+### 引入参考题集精华（据同类高质量面试题集）
+把参考的高质量主题题集，按「★ 参考题解精华」小节并入对应章节（只新增、不破坏原内容，含分点+表格/图示+面试金句）：
+- **CAN**（`b/q-can-arbitration`）：RTR/IDE/DLC 逐位精读、TEC/REC 阈值与加减规则、自动重发与 ACK、位时序采样点/SJW 计算、CAN vs LIN vs RS485 选型表。
+- **SPI**（`b/q-spi-cpol-cpha`、`b/q-bus`）：全双工移位寄存器、CS/NSS 三模式、Mode 0/3、多从方案、速率上限、位序陷阱、SPI DMA、QSPI/XIP；及流控/功耗/距离对比与选型决策树。
+- **USART/UART**（`b/q-uart-deep`、`m/q-mcu-uart`）：UART vs USART、帧格式、奇偶校验、波特率误差与采样、115200 实际速率、错误标志、DMA+IDLE、RTO 超时、鲁棒帧解析 FSM，并做交叉引用。
+- **FreeRTOS**（`os/q-rtos-schedule`、`q-task-comm`、`q-freertos-memory`、`q-semaphore-mutex`）：任务五状态与 TCB 双链表、O(1) 调度位图、两阶段上下文切换、事件组/任务通知底层、heap_2 vs heap_4、Queue_t 复用、优先级继承源码细节。
+
+### 说明
+- 题卡数量：87；校勘全部通过；构建成功。
+
 ## 0.14.0（2026-08）
 
 ### 参考同类题库的经验优化

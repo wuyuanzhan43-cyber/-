@@ -55,4 +55,48 @@ why: |
 - 时间片轮转什么时候用？——多个同优先级任务需要公平共享 CPU；否则单高优先级独占。若只有高优先级任务就绪，低优先级不跑（合理）。
 - 任务怎么让出 CPU？——调用 `taskYIELD`（让给同优先级/更高优先级）、或进入阻塞（延时/等事件）。
 
+### ★ 参考题解精华
+
+> 摘自 FreeRTOS 内核面试题集（V11.1.0 源码分析），补充「任务状态/TCB、调度热路径、两阶段切换、挂起 vs 临界区」的源码级细节。
+
+**① 任务五状态与 TCB 双链表（调度器怎么“认”任务）**
+
+| 状态 | 任务挂在哪条链 |
+|---|---|
+| Running | **不在任何链**——`pxCurrentTCB` 全局指针直接引用（当前任务只有一个） |
+| Ready | `pxReadyTasksLists[priority]`（按优先级的就绪链） |
+| Blocked | `pxDelayedTaskList`/`pxOverflowDelayedTaskList`（等超时），**同时**在某个事件等待链上 |
+| Suspended | `xSuspendedTaskList` |
+| Deleted | `xTasksWaitingTermination`（等 Idle 任务回收） |
+
+- TCB 里有**两个** `ListItem_t`：`xStateListItem` 决定“能否被调度/何时唤醒”（挂就绪/延时/挂起/终止链）；`xEventListItem` 表示“在等什么事件”（挂队列/事件组等链）。
+- **为什么拆两个节点**：一个任务可能同时“等超时（延时）”又“等数据（事件）”，两条路径竞争——谁先到就从谁唤醒；若只有一个节点，就无法同时挂两条链。
+> 💡 一句话：**Running 不入链（用指针搞定）；一个任务占一条状态链 + 一条事件链，“事件 vs 超时”靠两个节点分别挂链竞争出生。**
+
+**② 调度热路径：`uxTopReadyPriority` 位图 + CLZ = O(1) 找最高优**
+
+- `uxTopReadyPriority` 是**位图**：bit N = 1 表示优先级 N 有就绪任务；配合 Cortex-M 的 `CLZ`（前导零计数）O(1) 找到最高就绪优先级，替代 O(32) 遍历 `pxReadyTasksLists[]`。
+- 就绪链按优先级维护，调度器取“最高优先级就绪任务”运行；高优任务就绪即**抢占**，同优先级用 `configUSE_TIME_SLICING` 时间片轮转。
+
+**③ 两阶段上下文切换：链表记账（内核） + 寄存器切换（PendSV 汇编）**
+
+| 阶段 | 在哪 | 做什么 |
+|---|---|---|
+| ① 记账 | 内核 API 内部 | 把任务 `xStateListItem` 移到目标链 + `portYIELD()` 置位 `PENDSVSET`（“该选了”） |
+| ② 切换 | PendSV 异常内 | 保存 R4-R11 到本任务栈 → 更新 `pxCurrentTCB` → `vTaskSwitchContext()` → 恢复新任务 R4-R11 → `bx r14` 出栈跳转 |
+
+- **为什么分两段**：保存/恢复寄存器、操作 PSP 是架构相关，只能放移植层汇编；“选谁”是纯软件策略，放内核层。
+- **PendSV 用最低优先级**：保证所有高优先级外设 ISR 先跑完才切换；ISR 里 `portYIELD_FROM_ISR` 只“标记 pending”，不立即切——**不打断正在跑的 ISR**（延迟切换）。
+
+**④ 挂起调度器 vs 临界区（basepri vs PRIMASK）**
+
+| | `vTaskSuspendAll` | `taskENTER_CRITICAL` |
+|---|---|---|
+| 关中断？ | **否**，ISR 照跑 | **是**，可配置中断被屏蔽 |
+| 切任务 | 禁止（但 ISR 的唤醒被暂存） | 无切换 |
+| 屏蔽机制 | 计数 `uxSchedulerSuspended` | `basepri`（屏蔽 ≥ 阈值的中断） |
+| 用在哪 | 较长的链表/阻塞序列保护 | 极短关键操作 |
+
+- `configMAX_SYSCALL_INTERRUPT_PRIORITY` 作 `basepri` 阈值，临界区**只屏蔽“可能调 FreeRTOS API 的中断”**，高优先级硬实时中断（电机 PWM、安全关断）仍可响应；若用 `PRIMASK` 会连它们一起关掉。
+
 > 📌 一句话记忆：**优先抢占=高级先跑可抢占；时间片=同优先级轮流；阻塞=让出CPU不空转；调度延迟看临界区/关中断/优先级。**
