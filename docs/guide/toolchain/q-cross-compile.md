@@ -10,7 +10,7 @@ answer: |
   **交叉编译**指在**宿主机（开发机，常为 x86）**上编译出能在**目标机（另一架构，如 ARM/MIPS/RISC-V）**上运行的程序。因为目标机可能没有完整开发环境/性能弱。
   做法：用带**目标架构前缀的工具链**，如 `arm-linux-gnueabihf-gcc`、`aarch64-linux-gnu-gcc`、`riscv64-linux-gnu-gcc` 等（`<target>-gcc`），配合对应的**头文件、库（sysroot）**与 `--host`/`--target` 配置。
   关键配置：
-  - **`--prefix` 工具链路径**、**`--host`/`--target` 架构**。
+  - **`--prefix` 工具链安装路径**、**`--host`/`--target` 架构**（宿主=编译机 build·host，目标=target）。
   - **sysroot**：目标架构的根文件系统（含库/头文件）。
   - **`CROSS_COMPILE`**：内核 `make` 常用，如 `CROSS_COMPILE=arm-linux-gnueabihf-`。
   - 用 **Buildroot / Yocto / cross 工具链** 或 **arm-linux 工具链**（Linaro 等）搭建。

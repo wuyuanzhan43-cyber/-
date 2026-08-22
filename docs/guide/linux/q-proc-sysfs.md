@@ -27,7 +27,7 @@ why: |
 | 核心元素 | PID 目录、meminfo、cpuinfo、参数 | 属性 attribute 文件、uevent、bind/unbind |
 | 主要用途 | 查看状态、调内核参数 | 驱动/设备配置、热插拔、udev |
 | 典型 | `/proc/meminfo` `/proc/PID/cmdline` | `/sys/bus/.../devices/.../attr` |
-| 靠什么驱动 | 进程信息、内核 info | kobject/kobject 属性 |
+| 靠什么驱动 | 进程信息、内核 info | kobject + attribute 属性 |
 
 ### 为什么 sysfs 对驱动重要
 

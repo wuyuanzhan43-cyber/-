@@ -38,7 +38,7 @@ why: |
 ```
 你的应用 write()
   → libc(fwrite/stdio) 封装（带缓冲）
-  → 把 fd/缓冲/长度 放到寄存器（x0-x2 / r0-r2；系统调用号在 x8 / r7）
+  → 把 fd/缓冲/长度 放到寄存器（ARM64 用 x0-x2、系统调用号在 x8；ARM32 用 r0-r2、系统调用号在 r7）
   → 执行 syscall / svc 指令（触发陷入）
   → CPU 切到内核栈、切特权级（用户态→内核态）
   → 内核按系统调用号查 sys_call_table → sys_write → ksys_write

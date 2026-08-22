@@ -1,5 +1,15 @@
 # 更新日志 / Changelog
 
+## 0.13.0（2026-08）
+
+### 全文审校与修正
+- 对全部 87 道题做了一轮系统审校（4 个并行审校代理：C/数据结构/工具链、OS/RTOS、ARM/总线、Linux/MCU），修正了一批**确凿事实错误**与表述问题：
+  - C：`q-union` 位域成员 `auto`（C 关键字）改为 `en`；`q-volatile` 屏障表述；`q-bit-ops` 的 `1U<<n`；`q-unsigned-trap` 删除自我怀疑式注释；`q-alignment`/`q-makefile` 错字；`q-pointer-array` 数组类型。
+  - OS：`q-watchdog` 内部「在哪喂狗」重复合并；`q-interrupt-context` 内存分配表述；`q-process-lifecycle` 双重 fork；`q-deadlock`「充要→必要」；`q-user-kernel` 寄存器约定拆行；补「临界区/上下文切换」定义；给中断三题/队列两题/调度三题加交叉引用。
+  - ARM/总线：`q-flash-nor-nand` 的 NOR/NAND **寿命反转**（NOR 通常不低于 NAND，NAND 需坏块/ECC/磨损均衡）与速度限定；`q-arm-exception` 复位无返回地址；`q-rs485-modbus` 主/从；`q-uart-deep` 吞吐公式；`q-endian` 示例统一；`q-arm-instruction` PUSH/POP；`q-nvic-gic` 向量化表述；`q-ethernet` DM9000/YT8512；`q-lin` CAN 上限；`q-bus` I2C 1Mbps 等加交叉引用。
+  - Linux/MCU：`q-boot` 编码损坏字符（调度器）；`q-dma-cache` 伪内核符号 `dst/rmb→dma_wmb/dma_rmb`；`q-timer-pwm` **1ms→10ms**（取 ARR=9999、PSC=71）；`q-nvic-exti` 优先级总位数 4；`q-bit-band` 别名区基址；`q-rtc` 备用域；`q-gpio-config` SCL/SDA；`q-tcp-handshake` CLOSE_WAIT/LAST_ACK 状态标注；并给 `low-power↔cortexm-lowpower`、`mcu-uart↔uart-deep`、`dma-cache↔mem-management` 等加交叉引用。
+- 校勘：87 道题卡全部通过。
+
 ## 0.12.0（2026-08）
 
 ### 深读方向升级（按“场景/排查链条 + 工程踩坑 + 体系串讲”重做 3 道示范）

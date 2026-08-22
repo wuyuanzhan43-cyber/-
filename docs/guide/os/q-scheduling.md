@@ -20,6 +20,8 @@ why: |
 ---
 <FlashCard />
 
+> 📖 调度延迟/抢占/时间片详见「RTOS 调度与时间片（q-rtos-schedule）」与「实时性与时延（q-realtime）」。
+
 ## 深读
 
 ### 常见算法对照

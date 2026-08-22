@@ -35,7 +35,7 @@ why: |
 ### 内核启动的几个关键点
 
 1. 内核入口先从汇编代码（`head.S`/`stext`）建立**页表与 MMU**，转到 C 语言 `start_kernel`。
-2. `start_kernel` 初始化：`setup_arch`（解析 DTB/机器类型）、内存管理、`sched_init`（调�度器）、`init_IRQ`（中断）、`vfs_caches_init` 等。
+2. `start_kernel` 初始化：`setup_arch`（解析 DTB/机器类型）、内存管理、`sched_init`（调度器）、`init_IRQ`（中断）、`vfs_caches_init` 等。
 3. 之后调用 `rest_init` 起 `init` 线程，最终 `run_init_process` 启动用户态 init。
 4. **设备树**在启动早期被内核解析为 platform 设备的树，用于注册驱动与设备。
 

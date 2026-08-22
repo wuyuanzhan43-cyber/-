@@ -28,6 +28,8 @@ why: |
 ---
 <FlashCard />
 
+> 📖 队列的创建/拷贝/阻塞/FromISR 见「RTOS 任务通信（q-task-comm）」。
+
 ## 深读
 
 ### 队列用法（核心）

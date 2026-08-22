@@ -54,6 +54,8 @@ PUSH {r4,lr}      ; 压栈
 POP  {r4,pc}      ; 弹栈返回
 ```
 
+- `PUSH/POP` 是 **Thumb** 语法；**ARM 态**对应 **`STMDB`/`LDMIA`**（如 `STMDB sp!, {r4,lr}` / `LDMIA sp!, {r4,pc}`）。
+
 ### 常见追问
 
 - 为什么 Cortex-M 用 Thumb-2？——代码密度高（省 Flash），性能可，编译支持好。

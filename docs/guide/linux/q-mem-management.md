@@ -51,5 +51,6 @@ why: |
 - 为什么 DMA 要物理连续？——DMA 控制器直接按物理地址搬数据，不管虚拟地址；`kmalloc` 给物理连续，`vmalloc` 不行。
 - 用户态和内核态能直接用同一个指针吗？——不能，地址空间隔离，需 `copy_*_user` 或 `mmap` 映射。
 - `GFP_ATOMIC` vs `GFP_KERNEL`？——`KERNEL` 可睡眠（进程上下文），`ATOMIC` 不睡眠（中断/原子上下文），可能更快失败。
+- DMA 与缓存一致性详见`DMA 与 Cache 一致性（q-dma-cache）`。
 
 > 📌 一句话记忆：**kmalloc=物理连续（DMA/驱动小中块，快）；vmalloc=虚拟连续（大块，慢）；用户态 malloc 在进程地址空间，两态互传要 copy_*_user。**

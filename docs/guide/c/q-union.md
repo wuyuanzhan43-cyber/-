@@ -36,17 +36,17 @@ else printf("little-endian\n");
 ```c
 union {
   uint32_t word;
-  struct { uint8_t auto; uint8_t mode; uint8_t irq; } f;
+  struct { uint8_t en; uint8_t mode; uint8_t irq; } f;
 } reg;
 ```
 
-- 但**位域/成员顺序由编译器决定**（跨端序、跨编译器可能不同），对 MMIO/协议**慎用**。
+- 但**位域/成员顺序由编译器决定**（跨端序、跨编译器可能不同），对 MMIO/协议**慎用**。详见`位域做协议解析（q-bitfield-protocol）`。
 
 ### 与 struct 的区别
 
 | | struct | union |
 |---|---|---|
-| 内存 | 各成员**独立**，大小≈联合 | 各成员**共享**，大小=最大 |
+| 内存 | 各成员**独立**，大小≈各成员之和 | 各成员**共享**，大小=最大 |
 | 同时可用 | 所有成员 | 只一个 |
 | 目的 | 保存多个字段 | 复用同一块/按不同方式解读 |
 

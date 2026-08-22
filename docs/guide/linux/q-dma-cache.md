@@ -14,7 +14,7 @@ answer: |
   - `dma_map_single` / `dma_unmap_single`（流式 DMA）：搬运前/后由内核做**必要的 flush/invalidate**，再配合**内存屏障**。
   - `dma_alloc_coherent`（一致性映射）：**映射到无 cache 或自动维护一致性**的区域，CPU 与 DMA 看到的始终一致，适合持续访问。
   - 用 `dma_map_*`/`dma_unmap_*` 包裹每次传输；`DMA_TO_DEVICE`（CPU→设备）与 `DMA_FROM_DEVICE`（设备→CPU）方向不同，处理不同。
-  **还要注意**：**内存屏障**（`dma_wmb`/`dma_rmb` 或 `__sync_synchronize`，配合 `dst/rmb/wmb`），保证 DMA 与 CPU 的**访问顺序**；以及**地址对齐、无效内存访问（OOPS）**。
+  **还要注意**：**内存屏障**（`dma_wmb`/`dma_rmb`（或 `wmb`/`rmb`）、`__sync_synchronize`），保证 DMA 与 CPU 的**访问顺序**；以及**地址对齐、无效内存访问（OOPS）**。
 why: |
   现代 CPU 有 **cache（多级、写回）**，而 DMA **绕过缓存直接访问**物理内存。二者**不同步**就会读到**旧值/脏数据**，是**驱动/嵌入式最易踩的坑**之一。
   `dma_alloc_coherent`/`dma_map_*` 就是内核帮你**同步 cache 与内存**（flush/invalidate + barrier）的接口，保证 CPU 与 DMA 看到同一份数据。不理解就会：**DMA 收的数据是旧的、CPU 写的没被 DMA 读走、数据错乱**。
