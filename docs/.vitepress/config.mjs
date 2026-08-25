@@ -255,6 +255,29 @@ const sidebar = [
     items: [
       { text: '训练总览', link: '/guide/training/' },
       {
+        text: '嵌入式底子（C/OS/总线/MCU）',
+        items: [
+          { text: '指针 vs 数组', link: '/guide/training/q-base-c-pointer-array' },
+          { text: '程序内存布局', link: '/guide/training/q-base-c-memory-layout' },
+          { text: 'volatile 作用', link: '/guide/training/q-base-c-volatile' },
+          { text: '结构体内存对齐', link: '/guide/training/q-base-c-alignment' },
+          { text: '位操作与位域', link: '/guide/training/q-base-c-bitops' },
+          { text: 'static/const/extern', link: '/guide/training/q-base-c-storage-class' },
+          { text: '无符号数与整型陷阱', link: '/guide/training/q-base-c-unsigned' },
+          { text: '函数指针与回调', link: '/guide/training/q-base-c-funcptr' },
+          { text: '进程/线程/任务', link: '/guide/training/q-base-os-proc-thread' },
+          { text: 'RTOS 任务状态与调度', link: '/guide/training/q-base-os-sched' },
+          { text: '信号量 vs 互斥锁', link: '/guide/training/q-base-os-sync' },
+          { text: '中断上下文', link: '/guide/training/q-base-os-interrupt' },
+          { text: '栈/堆/分配', link: '/guide/training/q-base-os-memory' },
+          { text: 'UART 帧/波特率/电平', link: '/guide/training/q-base-bus-uart' },
+          { text: 'I2C vs SPI vs UART', link: '/guide/training/q-base-bus-i2c-spi' },
+          { text: 'CAN 总线', link: '/guide/training/q-base-bus-can' },
+          { text: 'ARM 启动/异常/大小端', link: '/guide/training/q-base-arm-boot' },
+          { text: 'GPIO/定时器PWM/ADC', link: '/guide/training/q-base-mcu-gpio-timer' },
+        ],
+      },
+      {
         text: '项目一·深挖预判',
         items: [
           { text: '双核架构与 HSEM', link: '/guide/training/q-project1-dualcore-hsem' },

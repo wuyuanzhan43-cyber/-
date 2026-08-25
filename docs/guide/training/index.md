@@ -1,7 +1,9 @@
 # 吴沅展 · 针对性训练（不投 Linux）
 
 > 这是把你简历对标的**面试训练方案**搬进了题库，并升级成 **HTML 交互卡片（〈FlashCard〉自测）**。
-> 本页是**训练总览**（怎么准备、哪些是红线），下面每一道「项目深挖预判」都是可翻卡自测的 FlashCard。
+> 本页是**训练总览**（怎么准备、哪些是红线），分两大类可翻卡自测的 FlashCard：
+> ① **嵌入式底子**（C / OS-RTOS / 总线 / MCU-ARM 基础八股，必拿分）
+> ② **项目深挖预判**（围绕你两个项目的面试题，防露怯）
 > 学习顺序与题库索引见 **[吴沅展针对性学习地图](/guide/method/targeted-training)**。
 
 ## 一、为什么这么准备（核心判断）
@@ -45,7 +47,35 @@
 3. **答完连项目**：每张卡最后都有「把八股接回你项目」的提示，学会在答题末尾加一句关联（这是你拿分的关键）。
 4. **循环**：生了的标记，隔天回来再翻，直到「熟」为止。
 
-## 五、项目深挖 FlashCard 一览
+## 五、嵌入式底子 FlashCard 一览（先打底子，再攻项目）
+
+### C 语言底子
+- [指针 vs 数组 / 指针数组 vs 数组指针](q-base-c-pointer-array)
+- [程序内存布局（.text/.data/.bss/堆/栈）](q-base-c-memory-layout)
+- [volatile 作用与局限](q-base-c-volatile)
+- [结构体内存对齐](q-base-c-alignment)
+- [位操作与位域](q-base-c-bitops)
+- [static / const / extern 作用](q-base-c-storage-class)
+- [无符号数与整型陷阱](q-base-c-unsigned)
+- [函数指针与回调](q-base-c-funcptr)
+
+### OS / RTOS 底子
+- [进程 / 线程 / 任务区别与调度](q-base-os-proc-thread)
+- [RTOS 任务五状态与调度机制](q-base-os-sched)
+- [信号量 vs 互斥锁 / 优先级反转](q-base-os-sync)
+- [中断上下文与 ISR 里能做什么](q-base-os-interrupt)
+- [栈 / 堆 / 动态与静态分配](q-base-os-memory)
+
+### 总线底子
+- [UART 帧 / 波特率 / 电平 / 乱码排查](q-base-bus-uart)
+- [I2C vs SPI vs UART 区别与时序](q-base-bus-i2c-spi)
+- [CAN 总线（多主/仲裁/差分/终端电阻）](q-base-bus-can)
+
+### MCU / ARM 底子
+- [ARM/STM32 启动过程 / 异常向量表 / 大小端](q-base-arm-boot)
+- [GPIO / 定时器(PWM) / ADC 基础](q-base-mcu-gpio-timer)
+
+## 六、项目深挖 FlashCard 一览
 
 - [项目一·双核架构与 HSEM 为什么](q-project1-dualcore-hsem)
 - [项目一·边缘 AI：INT8 量化 + tensor arena](q-project1-edgeai-quant)
