@@ -102,6 +102,21 @@ const sidebar = [
     ],
   },
   {
+    text: '架构与并发进阶',
+    collapsed: false,
+    items: [
+      { text: '架构与并发进阶概览', link: '/guide/arch/' },
+      {
+        text: '高频题',
+        items: [
+          { text: '无锁编程 / 原子 / MPSC / 内存屏障', link: '/guide/arch/q-lockfree-mpsc' },
+          { text: 'C 的面向对象 / 设计模式 / 驱动模型', link: '/guide/arch/q-oop-in-c' },
+          { text: '完成量 / workqueue / 异步机制', link: '/guide/arch/q-completion-workqueue' },
+        ],
+      },
+    ],
+  },
+  {
     text: 'Linux 基础',
     collapsed: false,
     items: [
@@ -143,6 +158,7 @@ const sidebar = [
           { text: 'MMU vs MPU', link: '/guide/arm/q-mmu-vs-mpu' },
           { text: 'MMU 与内存管理', link: '/guide/arm/q-mmu' },
           { text: 'Cortex-M 硬件与 FreeRTOS 移植', link: '/guide/arm/q-cortexm-port' },
+          { text: 'RISC-V 基础与青稞V4双核', link: '/guide/arm/q-riscv' },
         ],
       },
     ],
@@ -195,6 +211,20 @@ const sidebar = [
     ],
   },
   {
+    text: '边缘 AI（TFLM / 量化 / 部署）',
+    collapsed: false,
+    items: [
+      { text: '边缘 AI 概览', link: '/guide/ai/' },
+      {
+        text: '高频题',
+        items: [
+          { text: 'INT8 量化原理（scale/zero_point/校准）', link: '/guide/ai/q-tflm-int8' },
+          { text: 'tensor arena 与内存规划', link: '/guide/ai/q-tensor-arena' },
+        ],
+      },
+    ],
+  },
+  {
     text: '工具链与构建',
     collapsed: false,
     items: [
@@ -216,6 +246,39 @@ const sidebar = [
     items: [
       { text: '备考与方法论', link: '/guide/method/' },
       { text: '面试金句速记', link: '/guide/method/quotes' },
+      { text: '吴沅展针对性学习地图', link: '/guide/method/targeted-training' },
+    ],
+  },
+  {
+    text: '吴沅展针对性训练',
+    collapsed: false,
+    items: [
+      { text: '训练总览', link: '/guide/training/' },
+      {
+        text: '项目一·深挖预判',
+        items: [
+          { text: '双核架构与 HSEM', link: '/guide/training/q-project1-dualcore-hsem' },
+          { text: 'INT8 量化 + tensor arena', link: '/guide/training/q-project1-edgeai-quant' },
+          { text: 'BLE 传输与粘包/拆包', link: '/guide/training/q-project1-ble-frame' },
+          { text: '指标：准确率/耗时/内存', link: '/guide/training/q-project1-metrics' },
+        ],
+      },
+      {
+        text: '项目二·深挖预判',
+        items: [
+          { text: '分层架构与驱动模型', link: '/guide/training/q-project2-layered-arch' },
+          { text: '无锁 / 原子 / MPSC / bufpool', link: '/guide/training/q-project2-lockfree' },
+          { text: '零拷贝：DMA+PingPongbuf', link: '/guide/training/q-project2-zerocopy' },
+          { text: '完成量 / workqueue', link: '/guide/training/q-project2-sync' },
+        ],
+      },
+      {
+        text: '补充·针对性',
+        items: [
+          { text: '边缘 AI 端云协同全链路', link: '/guide/training/q-edgeai-deploy' },
+          { text: 'RISC-V 双核对照与迁移', link: '/guide/training/q-riscv-dualcore' },
+        ],
+      },
     ],
   },
 ]
