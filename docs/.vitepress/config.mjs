@@ -166,37 +166,63 @@ const sidebar = [
     text: 'RT-Thread 深挖',
     collapsed: false,
     items: [
-      { text: 'RT-Thread 概览与学习主线', link: '/guide/rtthread/' },
+      { text: 'RT-Thread 体系总览与学习主线', link: '/guide/rtthread/' },
       {
-        text: '内核与调度',
+        text: '内核篇',
         items: [
           { text: '架构与内核对象模型', link: '/guide/rtthread/q-rtthread-arch' },
           { text: '线程调度与就绪位图 O(1)', link: '/guide/rtthread/q-rtthread-sched' },
           { text: '线程控制块与状态机', link: '/guide/rtthread/q-rtthread-thread' },
-        ],
-      },
-      {
-        text: 'IPC 与内存',
-        items: [
           { text: '同步：信号量/互斥锁/事件集', link: '/guide/rtthread/q-rtthread-sync' },
           { text: '通信：消息队列/邮箱/信号', link: '/guide/rtthread/q-rtthread-ipc' },
           { text: '内存管理：内存池/SLAB/Buddy', link: '/guide/rtthread/q-rtthread-memory' },
-        ],
-      },
-      {
-        text: '中断/定时器/设备',
-        items: [
           { text: '中断管理与中断内 IPC', link: '/guide/rtthread/q-rtthread-interrupt' },
           { text: '定时器（软/硬）与 tick', link: '/guide/rtthread/q-rtthread-timer' },
-          { text: '设备框架与驱动模型', link: '/guide/rtthread/q-rtthread-device' },
-        ],
-      },
-      {
-        text: '工程与选型',
-        items: [
           { text: '启动与自动初始化', link: '/guide/rtthread/q-rtthread-boot' },
           { text: '构建：Env/Kconfig/SConscript', link: '/guide/rtthread/q-rtthread-build' },
           { text: 'RT-Thread vs FreeRTOS', link: '/guide/rtthread/q-rtthread-vs-freertos' },
+        ],
+      },
+      {
+        text: '设备驱动篇',
+        items: [
+          { text: '设备模型与驱动开发', link: '/guide/rtthread/q-rtthread-dev-model' },
+          { text: '设备框架（rt_device）入门', link: '/guide/rtthread/q-rtthread-device' },
+          { text: '串口设备框架', link: '/guide/rtthread/q-rtthread-serial' },
+          { text: 'I2C 总线框架', link: '/guide/rtthread/q-rtthread-i2c' },
+          { text: 'SPI 总线框架', link: '/guide/rtthread/q-rtthread-spi' },
+          { text: 'SPI Flash/分区/文件系统承载', link: '/guide/rtthread/q-rtthread-flash' },
+          { text: '看门狗设备框架', link: '/guide/rtthread/q-rtthread-wdt' },
+        ],
+      },
+      {
+        text: '文件系统篇',
+        items: [
+          { text: '虚文件系统 DFS 与 VFS 抽象', link: '/guide/rtthread/q-rtthread-fs-vfs' },
+          { text: 'elm-fatfs（FAT）', link: '/guide/rtthread/q-rtthread-fs-elmfat' },
+          { text: 'romfs / ramfs / devfs', link: '/guide/rtthread/q-rtthread-fs-basic' },
+          { text: 'POSIX 文件 API、挂载与裁剪', link: '/guide/rtthread/q-rtthread-fs-posix' },
+        ],
+      },
+      {
+        text: '网络篇（规划中）',
+        items: [
+          { text: 'SAL/netdev/lwip（待补）', link: '/guide/rtthread/' },
+          { text: 'MQTT/WebClient/Modbus（待补）', link: '/guide/rtthread/' },
+        ],
+      },
+      {
+        text: '组件与工具篇（规划中）',
+        items: [
+          { text: 'FlashDB/LVGL（待补）', link: '/guide/rtthread/' },
+          { text: 'Studio/Env/包管理器（待补）', link: '/guide/rtthread/' },
+        ],
+      },
+      {
+        text: '移植篇（规划中）',
+        items: [
+          { text: 'BSP 移植（待补）', link: '/guide/rtthread/' },
+          { text: 'RT-Thread Smart（待补）', link: '/guide/rtthread/' },
         ],
       },
     ],
