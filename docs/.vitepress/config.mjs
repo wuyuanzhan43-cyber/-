@@ -308,6 +308,7 @@ const sidebar = [
       { text: '备考与方法论', link: '/guide/method/' },
       { text: '面试金句速记', link: '/guide/method/quotes' },
       { text: '吴沅展针对性学习地图', link: '/guide/method/targeted-training' },
+      { text: '部署与推拉记忆', link: '/guide/method/deploy-memory' },
     ],
   },
   {
