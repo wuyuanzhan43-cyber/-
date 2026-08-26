@@ -163,6 +163,45 @@ const sidebar = [
     ],
   },
   {
+    text: 'RT-Thread 深挖',
+    collapsed: false,
+    items: [
+      { text: 'RT-Thread 概览与学习主线', link: '/guide/rtthread/' },
+      {
+        text: '内核与调度',
+        items: [
+          { text: '架构与内核对象模型', link: '/guide/rtthread/q-rtthread-arch' },
+          { text: '线程调度与就绪位图 O(1)', link: '/guide/rtthread/q-rtthread-sched' },
+          { text: '线程控制块与状态机', link: '/guide/rtthread/q-rtthread-thread' },
+        ],
+      },
+      {
+        text: 'IPC 与内存',
+        items: [
+          { text: '同步：信号量/互斥锁/事件集', link: '/guide/rtthread/q-rtthread-sync' },
+          { text: '通信：消息队列/邮箱/信号', link: '/guide/rtthread/q-rtthread-ipc' },
+          { text: '内存管理：内存池/SLAB/Buddy', link: '/guide/rtthread/q-rtthread-memory' },
+        ],
+      },
+      {
+        text: '中断/定时器/设备',
+        items: [
+          { text: '中断管理与中断内 IPC', link: '/guide/rtthread/q-rtthread-interrupt' },
+          { text: '定时器（软/硬）与 tick', link: '/guide/rtthread/q-rtthread-timer' },
+          { text: '设备框架与驱动模型', link: '/guide/rtthread/q-rtthread-device' },
+        ],
+      },
+      {
+        text: '工程与选型',
+        items: [
+          { text: '启动与自动初始化', link: '/guide/rtthread/q-rtthread-boot' },
+          { text: '构建：Env/Kconfig/SConscript', link: '/guide/rtthread/q-rtthread-build' },
+          { text: 'RT-Thread vs FreeRTOS', link: '/guide/rtthread/q-rtthread-vs-freertos' },
+        ],
+      },
+    ],
+  },
+  {
     text: '架构与并发进阶',
     collapsed: false,
     items: [
