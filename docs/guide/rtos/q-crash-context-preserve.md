@@ -5,18 +5,19 @@ category: rtos
 difficulty: 4
 tags: [RTOS, 崩溃, 现场保留, HardFault, 日志]
 company: [汽车电子, 海康威视, 智驾]
-keywords: 死机 现场保留 HardFault 崩溃日志 FLASH 复位 调试寄存器 栈回溯
+keywords: 死机 现场保留 HardFault 崩溃日志 FLASH noinit RAM 复位 Magic 栈回溯
 answer: |
   **核心目标：死机时把"CPU 现场 + 任务上下文 + 关键寄存器 + 调用栈"抓下来，存到不会因复位丢失的地方，供事后分析。**
 
-  **做法（分层）**：
+  ### 做法（分层）
   1. **HardFault 异常处理**：在 `HardFault_Handler` 里，从**异常帧所在栈**提取**返回地址（PC）、LR、xPSR、R0–R3/R12、SP**，并记录**异常类型**与**当前任务**（`pxCurrentTCB`）。
   2. **写到"保命区"**：把崩溃信息（Magic 字 + 异常类型 + 寄存器 + 当前任务名 + 调用栈 + 时间戳）写进**复位不清的 RAM 区**或**Flash/EEPROM 段**。
   3. **复位 + 上电转储**：上电 **bootloader/主程序先检查崩溃标志（Magic）**，发现上次崩过就把崩溃日志**通过 UART/调试口转储出来**，或直接用**调试器读 RAM**。
   4. **调试器/工具**：用 **SWD + IDE（Segger SystemView/Ozone、ARM CoreSight、GDB）** 读 **SCB 寄存器**（`CFSR/HFSR/BFAR/MMFAR`）与**异常帧**做栈回溯。
   5. **前置防御**：**平时就开** `configASSERT`、`vApplicationStackOverflowHook`、看门狗——很多崩溃在"写日志前"就已可被拦下。
 
-  **关键寄存器**（分析用）：`SCB->CFSR`（可配置错误状态）、`SCB->HFSR`（HardFault 状态）、`SCB->BFAR`/`SCB->MMFAR`（总线/内存管理出错地址）、以及异常帧里的 `PC/LR/SP/xPSR`。详见 `q-hardfault-locate`（Q21）。
+  ### 关键寄存器（分析用）
+  `SCB->CFSR`（可配置错误状态）、`SCB->HFSR`（HardFault 状态）、`SCB->BFAR`/`SCB->MMFAR`（总线/内存管理出错地址）、以及异常帧里的 `PC/LR/SP/xPSR`。详见 `q-hardfault-locate`（Q21）。
 why: |
   死机后**寄存器/栈就没了**——如果不提前"保留"，只能靠复现，而在嵌入式里"偶发崩溃"很难复现。所以：
   - **为什么抓异常帧**：异常帧（硬件压的 8 字）里就有**崩溃点的 PC、调用现场**，是复盘"**在哪一行崩**"的关键。
@@ -36,7 +37,7 @@ why: |
 | 寄存器 | `R0–R3/R12`、`LR`、`PC`（崩在哪条）、`SP`、`xPSR` |
 | 异常信息 | 异常号（HardFault/UsageFault 等）、`SCB->CFSR/HFSR/BFAR/MMFAR` |
 | 任务上下文 | `pxCurrentTCB`（崩在哪个任务）、任务名/优先级、各任务状态 |
-| 调用栈 | 从 `SP` 往回回溯的**栈帧链**（`LR`/`FP`），能还原调用序列 |
+| 调用栈 | 从 `SP` 往回回溯的**栈帧链**（`LR`/`FP`），还原调用序列 |
 | 元信息 | 时间戳、复位原因、版本号、Magic 字 |
 
 ### 崩溃转储流程常见实现
@@ -54,21 +55,48 @@ why: |
   → 无: 正常启动
 ```
 
+### 关键寄存器（崩溃分析入口）
+
+| 寄存器 | 作用 |
+|---|---|
+| `SCB->HFSR` | HardFault 状态（`FORCED`、`VECTTBL`、`DEBUGEVT`） |
+| `SCB->CFSR` | 细分 BusFault(`BFSR`)/MemManage(`MMFSR`)/UsageFault(`UFSR`) |
+| `SCB->BFAR` | 总线错误地址（`BFARVALID` 时有效） |
+| `SCB->MMFAR` | 内存管理错误地址（`MMARVALID` 时有效） |
+| `IPSR` | 当前异常号 |
+
+- 详细拆解见 `q-hardfault-locate`（Q21）。
+
 ### 复位后取回现场的三种途径
 
-1. **RAM 保命区 + 调试器**：给崩溃日志留一个**复位不清的内存区**（如 `.noinit`/固定地址），复位后直接用 SWD/调试器读，最方便。
-2. **Flash/EEPROM 持久化**：关键现场写入非易失区，能跨掉电保留，但要处理**掉电瞬间写不完**——配合**掉电检测/大电容**把必要信息落盘。
+1. **RAM 保命区 + 调试器**：给崩溃日志留一个**复位不清的内存区**（如 `.noinit`/链接器固定地址），复位后用 **SWD/调试器** 直接读，最方便。
+2. **Flash/EEPROM 持久化**：关键现场写入非易失区，可跨掉电保留，但要处理**掉电瞬间写不完**——配合**掉电检测/大电容**把必要信息落盘。
 3. **上电转储到 UART/日志**：bootloader 检测到崩溃标志，把日志通过串口/大容量存储转储，供分析。
 
-### 常见追问
+### 崩溃信息落盘结构（示例）
 
-- **Q：为什么不用 printf 打崩溃日志？**
-  A：崩溃时**调度/中断不可靠、printf 可能再崩**或阻塞；且 printf 只在"即时有人看"时有效。**记录到保命区/Flash** 是"事后可查"的可靠方式。
+```c
+typedef struct {
+  uint32_t magic;      // 0xDEADBEEF 标记"存在有效崩溃日志"
+  uint32_t type;       // 异常号/错误类型
+  uint32_t pc, lr, sp, xpsr, r0, r1, r2, r3, r12; // 崩溃点寄存器
+  char     tcb_name[configMAX_TASK_NAME_LEN];      // 崩溃任务
+  uint32_t cfsr, hfsr, bfar, mmfar;               // 关键 SCB 寄存器
+  uint32_t stack[64];                              // 调用栈快照
+} crash_log_t; // 放在 .noinit / 固定地址
+```
 
-- **Q：崩溃时怎么知道是哪个任务？**
-  A：读 **`pxCurrentTCB`**（当前任务指针），在崩溃记录里写出任务名/优先级；配合各任务状态，判断崩在哪个任务的上下文。
+### 工程场景
 
-- **Q：崩溃转储最好放哪？**
-  A：**复位不清的 RAM 区**（掉电丢失但掉电前能查）+ **Flash/EEPROM**（跨掉电）。工程常"**RAM 先记、上电/掉电时转储到 Flash**"，并加 **Magic 标志**区分复位原因。
+- **症状**：产品偶发重启，但"不知道为啥"。
+- **根因/排查**：没做崩溃转储，只能靠复现。
+- **对策**：HardFault 里写 `crash_log_t` 到 `.noinit` RAM + Magic；复位后 bootloader/UART 转储；配合 **SWD/SystemView** 读现场与调用栈。
 
-> 📌 一句话记忆：**死机保留现场＝HardFault处理里抓 异常帧(PC/LR/SP/xPSR)+SCB寄存器+pxCurrentTCB+调用栈，写入复位不清RAM/Flash + Magic标志；上电检测标志→转储；平时开断言/栈溢出钩子/看门狗防患于未然；寄存器分析见 Q21。**
+### 进阶追问链
+
+1. **Q：为什么不用 printf 打崩溃日志？** → 崩溃时调度/中断不可靠、printf 可能再崩或阻塞；且 printf 只在"即时有人看"时有效。**记录到保命区/Flash** 是"事后可查"的可靠方式。
+2. **Q：崩溃时怎么知道是哪个任务？** → 读 `pxCurrentTCB`（当前任务指针），在崩溃记录里写出任务名/优先级；配合各任务状态判断崩在哪个上下文。
+3. **Q：崩溃转储最好放哪？** → **复位不清的 RAM 区**（掉电丢失但掉电前能查）+ **Flash/EEPROM**（跨掉电）。工程常"RAM 先记、上电/掉电时转储到 Flash"，并加 **Magic 标志**区分复位原因。
+4. **Q：掉电瞬间写 Flash 写不完怎么办？** → 用**掉电检测（BOR/PVD）提前**把关键现场搬进**非易失区**，或用**大电容**保证写 Flash 的几 ms；或用**双区日志**避免写到一半坏块。
+
+> 📌 一句话记忆：**死机保留现场＝HardFault处理里抓 异常帧(PC/LR/SP/xPSR)+SCB寄存器(CFSR/HFSR/BFAR/MMFAR)+pxCurrentTCB+调用栈，写入复位不清RAM(.noinit)/Flash + Magic标志；上电检测标志→UART/调试器转储；平时开断言/栈溢出钩子/看门狗；寄存器分析见Q21。**
