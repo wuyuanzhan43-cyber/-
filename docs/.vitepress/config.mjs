@@ -102,6 +102,67 @@ const sidebar = [
     ],
   },
   {
+    text: 'STM32 + FreeRTOS 深挖',
+    collapsed: false,
+    items: [
+      { text: '深挖概览与自测清单', link: '/guide/rtos/' },
+      {
+        text: '基础概念',
+        items: [
+          { text: 'Q1 现场保护 vs 任务上下文', link: '/guide/rtos/q-isr-save-vs-task-context' },
+          { text: 'Q2 中断现场保存哪些寄存器', link: '/guide/rtos/q-isr-save-registers' },
+          { text: 'Q3 任务上下文保存内容与位置', link: '/guide/rtos/q-task-context-save' },
+          { text: 'Q4 PendSV 的作用', link: '/guide/rtos/q-pendsv' },
+        ],
+      },
+      {
+        text: '中断与现场保护',
+        items: [
+          { text: 'Q5 硬件自动压栈哪些寄存器', link: '/guide/rtos/q-hw-save-registers' },
+          { text: 'Q6 中断里能调用 vTaskDelay 吗', link: '/guide/rtos/q-vtaskdelay-in-isr' },
+          { text: 'Q7 中断优先级 vs 任务优先级', link: '/guide/rtos/q-interrupt-vs-task-priority' },
+          { text: 'Q8 ISR 过长会怎样', link: '/guide/rtos/q-long-isr' },
+        ],
+      },
+      {
+        text: '任务切换与上下文',
+        items: [
+          { text: 'Q9 任务切换完整流程', link: '/guide/rtos/q-task-switch-flow' },
+          { text: 'Q10 TCB 里保存了哪些信息', link: '/guide/rtos/q-tcb-fields' },
+          { text: 'Q11 任务栈溢出检测与后果', link: '/guide/rtos/q-stack-overflow-detect' },
+          { text: 'Q12 SysTick 的角色', link: '/guide/rtos/q-systick-role' },
+        ],
+      },
+      {
+        text: 'RTOS 核心机制',
+        items: [
+          { text: 'Q13 信号量 vs 互斥锁', link: '/guide/rtos/q-rtos-sem-mutex' },
+          { text: 'Q14 消息队列 vs 任务通知', link: '/guide/rtos/q-rtos-queue-notify' },
+          { text: 'Q15 优先级反转与解决', link: '/guide/rtos/q-rtos-priority-inversion' },
+          { text: 'Q16 共享资源数据一致性', link: '/guide/rtos/q-rtos-shared-resource' },
+        ],
+      },
+      {
+        text: '工程落地',
+        items: [
+          { text: 'Q17 中断收数据传给任务', link: '/guide/rtos/q-isr-to-task-comm' },
+          { text: 'Q18 看门狗配合 RTOS', link: '/guide/rtos/q-watchdog-rtos' },
+          { text: 'Q19 死机保留现场', link: '/guide/rtos/q-crash-context-preserve' },
+          { text: 'Q20 裸机移植 RTOS', link: '/guide/rtos/q-baremetal-to-rtos' },
+        ],
+      },
+      {
+        text: '调试与排查',
+        items: [
+          { text: 'Q21 HardFault 定位', link: '/guide/rtos/q-hardfault-locate' },
+          { text: 'Q22 任务栈溢出排查', link: '/guide/rtos/q-stack-overflow-debug' },
+          { text: 'Q23 卡死但看门狗没复位', link: '/guide/rtos/q-stuck-no-reset' },
+          { text: 'Q24 CPU 占用率测量', link: '/guide/rtos/q-cpu-usage-measure' },
+        ],
+      },
+    ],
+  },
+  {
     text: '架构与并发进阶',
     collapsed: false,
     items: [

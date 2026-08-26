@@ -39,7 +39,7 @@ docs/
   study.md                    # 自测刷题页（做题 + 进度 + 错题本）
   guide/
     readme.md                 # 手册说明
-    c/  ds/  os/  linux/  arm/  bus/  method/   # 分类目录
+    c/  ds/  os/  rtos/  linux/  arm/  bus/  method/   # 分类目录（rtos=STM32+FreeRTOS 深挖，24 题自测清单）
       每个分类下: index.md（概览）+ q-*.md（一道题卡）
   .vitepress/
     config.mjs                # 站点配置：分类树导航 / 本地搜索
