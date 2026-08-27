@@ -205,24 +205,26 @@ const sidebar = [
         ],
       },
       {
-        text: '网络篇（规划中）',
+        text: '网络篇',
         items: [
-          { text: 'SAL/netdev/lwip（待补）', link: '/guide/rtthread/' },
-          { text: 'MQTT/WebClient/Modbus（待补）', link: '/guide/rtthread/' },
+          { text: '网络架构分层总览(SAL/netdev/LwIP)', link: '/guide/rtthread/q-rtthread-net-arch' },
+          { text: 'SAL 套接字抽象层', link: '/guide/rtthread/q-rtthread-net-sal' },
+          { text: '应用协议(MQTT/WebClient/Modbus/OTA)', link: '/guide/rtthread/q-rtthread-net-app' },
         ],
       },
       {
-        text: '组件与工具篇（规划中）',
+        text: '组件与工具篇',
         items: [
-          { text: 'FlashDB/LVGL（待补）', link: '/guide/rtthread/' },
-          { text: 'Studio/Env/包管理器（待补）', link: '/guide/rtthread/' },
+          { text: 'FlashDB / EasyFlash', link: '/guide/rtthread/q-rtthread-comp-storage' },
+          { text: '开发工具(Studio/Env/包管理/QEMU)', link: '/guide/rtthread/q-rtthread-tool-build' },
+          { text: 'C++ / POSIX / MicroPython', link: '/guide/rtthread/q-rtthread-comp-lang' },
         ],
       },
       {
-        text: '移植篇（规划中）',
+        text: '移植篇',
         items: [
-          { text: 'BSP 移植（待补）', link: '/guide/rtthread/' },
-          { text: 'RT-Thread Smart（待补）', link: '/guide/rtthread/' },
+          { text: 'BSP 移植（时钟/串口/Flash/中断）', link: '/guide/rtthread/q-rtthread-port-bsp' },
+          { text: 'RT-Thread Smart（微内核/动态加载/SMP）', link: '/guide/rtthread/q-rtthread-port-smart' },
         ],
       },
     ],
