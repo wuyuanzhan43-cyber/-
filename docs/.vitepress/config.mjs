@@ -167,6 +167,7 @@ const sidebar = [
     collapsed: false,
     items: [
       { text: 'RT-Thread 体系总览与学习主线', link: '/guide/rtthread/' },
+      { text: '官方手册镜像（原文+图）', link: '/guide/rtthread-doc/' },
       {
         text: '内核篇',
         items: [
