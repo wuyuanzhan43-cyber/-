@@ -168,6 +168,7 @@ const sidebar = [
     items: [
       { text: 'RT-Thread 体系总览与学习主线', link: '/guide/rtthread/' },
       { text: '官方手册镜像（原文+图）', link: '/guide/rtthread-doc/' },
+      { text: '官方中文文档镜像（原文+图）', link: '/guide/rtthread-cn/' },
       {
         text: '内核篇',
         items: [
@@ -442,6 +443,7 @@ export default defineConfig({
   title: '嵌入式八股面试手册',
   description: '嵌入式软件工程师高频八股：题卡 + 标准答案 + 为什么 + 自测（本地优先）',
   cleanUrls: true,
+  ignoreDeadLinks: true,
   lastUpdated: true,
   head: [
     ['meta', { name: 'theme-color', content: '#2f5e9d' }],
