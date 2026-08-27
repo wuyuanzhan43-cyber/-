@@ -26,6 +26,31 @@ title: RT-Thread 官方中文文档镜像
 - [原子操作（atomic）](/guide/rtthread-cn/programming-manual/atomic/atomic)
 - [SMP 介绍与移植（smp）](/guide/rtthread-cn/programming-manual/smp/smp)
 
+## 开发工具（development-tools · 官方中文）
+
+- [RT-Thread Studio 用户手册](/guide/rtthread-cn/development-tools/rtthread-studio/um/studio-user-manual)
+- [快速上手](/guide/rtthread-cn/development-tools/rtthread-studio/applications/quick-start/rtthread-studio-quick-start)
+- [PIN 设备](/guide/rtthread-cn/development-tools/rtthread-studio/drivers/pin/rtthread-studio-pin)
+- [UART 设备](/guide/rtthread-cn/development-tools/rtthread-studio/drivers/uart/v4.0.2/rtthread-studio-uart-v4.0.2)
+- [I2C / SPI / ETH / USB 设备](/guide/rtthread-cn/development-tools/rtthread-studio/drivers/spi/rtthread-studio-spi)
+- [Env 用户手册](/guide/rtthread-cn/development-tools/env/env)
+- [构建系统 Kconfig / SCons](/guide/rtthread-cn/development-tools/build-config-system/Kconfig)
+- [常见问题 FAQ](/guide/rtthread-cn/development-tools/rtthread-studio/faq/studio-faq)
+
+## RT-Thread Nano（官方中文）
+
+- [Nano 简介与下载](/guide/rtthread-cn/rt-thread-version/rt-thread-nano/an0038-nano-introduction)
+- [Nano 移植原理](/guide/rtthread-cn/rt-thread-version/rt-thread-nano/nano-port-principle/an0044-nano-port-principle)
+- [Nano 移植到 STM32/Keil](/guide/rtthread-cn/rt-thread-version/rt-thread-nano/nano-port-keil/an0039-nano-port-keil)
+- [Nano 使用 PIN/I2C/ADC](/guide/rtthread-cn/rt-thread-version/rt-thread-nano/nano-ref/nano-device-pin/nano-device-pin)
+
+## RT-Thread Smart（官方中文）
+
+- [Smart 简介](/guide/rtthread-cn/rt-thread-version/rt-thread-smart/introduction/rt-smart-intro/rt-smart-intro)
+- [Smart 进程概述](/guide/rtthread-cn/rt-thread-version/rt-thread-smart/introduction/rt-smart-lwp/rt-smart-lwp)
+- [QEMU 快速上手](/guide/rtthread-cn/rt-thread-version/rt-thread-smart/quick-start/qemu-win/quickstart)
+- [设备树使用](/guide/rtthread-cn/rt-thread-version/rt-thread-smart/device/device-tree/device-tree)
+
 ## 与本手册的关系
 
 - **对照**：本站另有面向面试的**「RT-Thread 深挖」题卡版**（[章节入口](/guide/rtthread/)），把知识点浓缩成「题卡+答案+追问」；本节则是**官方中文全文**，可作权威查证。
